@@ -1,28 +1,25 @@
 import ChatBot from "react-chatbotify";
 
 export default function App() {
-  const helpOptions = ["Quickstart", "API Docs", "Examples", "Github", "Discord"];
+  const helpOptions = ["Panduan Cepat", "Dokumentasi API", "Contoh", "Github", "Discord"];
   const flow = {
     start: {
-      message: "Hello, I am Tan Jin 👋! Welcome to React ChatBotify, I'm excited that you are using our " +
-        "chatbot 😊!",
+      message: "Halo, saya ChatBot Riku! Selamat datang di FAQ!",
       transition: { duration: 1000 },
       path: "show_options"
     },
     show_options: {
-      message: "It looks like you have not set up a conversation flow yet. No worries! Here are a few helpful " +
-        "things you can check out to get started:",
+      message: "Berikut adalah beberapa hal yang mungkin dapat membantu Anda!",
       options: helpOptions,
       path: "process_options"
     },
     prompt_again: {
-      message: "Do you need any other help?",
+      message: "Apakah Anda memerlukan bantuan lainnya?",
       options: helpOptions,
       path: "process_options"
     },
     unknown_input: {
-      message: "Sorry, I do not understand your message 😢! If you require further assistance, you may click on " +
-        "the Github option and open an issue there or visit our discord.",
+      message: "Maaf, saya tidak mengerti pesan Anda!",
       options: helpOptions,
       path: "process_options"
     },
@@ -32,13 +29,13 @@ export default function App() {
       path: async (params) => {
         let link = "";
         switch (params.userInput) {
-          case "Quickstart":
+          case "Panduan Cepat":
             link = "https://react-chatbotify.com/docs/introduction/quickstart/";
             break;
-          case "API Docs":
+          case "Dokumentasi API":
             link = "https://react-chatbotify.com/docs/api/settings";
             break;
-          case "Examples":
+          case "Contoh":
             link = "https://react-chatbotify.com/docs/examples/basic_form";
             break;
           case "Github":
@@ -50,7 +47,7 @@ export default function App() {
           default:
             return "unknown_input";
         }
-        await params.injectMessage("Sit tight! I'll send you right there!");
+        await params.injectMessage("Tunggu sebentar! Saya akan mengarahkan Anda ke sana!");
         setTimeout(() => {
           window.open(link);
         }, 1000)
@@ -63,8 +60,17 @@ export default function App() {
     },
   }
   return (
-    <ChatBot
-      settings={{tooltip: {text: false, mode: false}}} flow={flow}
-    />
+    <div>
+      Halo Dunia
+      <ChatBot
+        settings={{
+          tooltip: { text: false, mode: false },
+          general: { showFooter: false },
+          notification: { showCount: false },
+          header: {title: "Riku"}
+        }}
+        flow={flow}
+      />
+    </div>
   );
 };
